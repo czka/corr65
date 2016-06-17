@@ -1,53 +1,56 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 
-# By Maciej Sieczka, 2013-2104.
+# Written by Maciej Sieczka, 2013-2104.
+# This program is free software under the GNU General Public License (>=v2).
 
 """
-Kiedyś pod http://www.geonet.net.pl/gfx/pliki/kod_korekta65.txt był oryginalny
-kod Romana Kadaja napisany w Delphi. Można go nadal znaleźć na
+Some time ago on http://www.geonet.net.pl/gfx/pliki/kod_korekta65.txt there
+was an original Roman Kadaj's Delphi code. It can be still reached on
 http://web.archive.org/web/*/http://www.geonet.net.pl/gfx/pliki/kod_korekta65.txt.
-Publikuję go także w moim repozytorium obok niniejszego pliku w celach
-porównawczych i archiwizacyjnych. Nie roszczę sobie żadnych praw do jego
-zawartości.
+I'm publlishing it in my repository too for comparison and archival purposes. I
+do not claim any rights for its content.
 """
 
 """
 https://web.archive.org/web/20130820230820/http://www.geonet.net.pl/index.php?action=site&id=3:
 
-2003-03-24
-Korekty "1965" opublikowane
+2003-03-24 Korekty "1965" opublikowane
 
-W pliku "kod_korekta65.txt" jest podany oryginalny kod w j.DELPHI procedury korekcyjnej
-rzeczywistego układu "1965". Funkcjami korekt są wielomiany algebraiczne stopnia 12-16.
-Współczynniki są wyznaczone na podstawie wszystkich punktów I i II klasy. Dokładność
-transformacji pomiędzy układem rzeczywistym (empirycznym) a układem matematycznym
-jest określona błędem standardowym 0.03m.
-Procedura została już zaaplikowana w programie SWDE-konwertor wersja 3.0 oraz w programie
-GEONET_unitrans wersja 8.0.
-Z chwilą publikacji nie ogranicza się jakichkolwiek zastosowań.
-Przed użyciem do przeliczeń współrzędnych zaleca się jednak skontrolować poprawność
-zaaplikowania procedury przez porównanie działania np. z programem SWDE-konwertor
-(przykłady transformacji dla rozproszonych grup punktów).
+W pliku "kod_korekta65.txt" jest podany oryginalny kod w j.DELPHI procedury
+korekcyjnej rzeczywistego układu "1965". Funkcjami korekt są wielomiany
+algebraiczne stopnia 12-16.  Współczynniki są wyznaczone na podstawie wszystkich
+punktów I i II klasy. Dokładność transformacji pomiędzy układem rzeczywistym
+(empirycznym) a układem matematycznym jest określona błędem standardowym 0.03m.
+Procedura została już zaaplikowana w programie SWDE-konwertor wersja 3.0 oraz w
+programie GEONET_unitrans wersja 8.0.  Z chwilą publikacji nie ogranicza się
+jakichkolwiek zastosowań.  Przed użyciem do przeliczeń współrzędnych zaleca się
+jednak skontrolować poprawność zaaplikowania procedury przez porównanie
+działania np. z programem SWDE-konwertor (przykłady transformacji dla
+rozproszonych grup punktów).
 """
 
 """
 http://www.numerus.net.pl/geokonwerter/geokonwerter.pdf:
 
-Przeliczenie tzw. globalnymi korektami układu „1965”. Jest to aparat matematyczny, który
-może być zastosowany, gdy po stronie układu pierwotnego lub układu wtórnego występuje
-układ „1965” odniesiony do elipsoidy Krasowskiego, a po drugiej stronie układ odniesiony
-do elipsoidy GRS/80. Przeliczenie to jest oparte na funkcjach wielomianowych.
+Przeliczenie tzw. globalnymi korektami układu „1965”. Jest to aparat
+matematyczny, który może być zastosowany, gdy po stronie układu pierwotnego lub
+układu wtórnego występuje układ „1965” odniesiony do elipsoidy Krasowskiego, a
+po drugiej stronie układ odniesiony do elipsoidy GRS/80. Przeliczenie to jest
+oparte na funkcjach wielomianowych.
 
-W programie zaadaptowano współczynniki dotyczące korekt opracowane przez prof. Romana
-Kadaja, dostępne swojego czasu na jego stronie internetowej www.geonet.net.pl w postaci
-pliku pn. kod_korekta65.txt. Przeliczenie to nie zachowuje cechy konforemności, ale za
-to praktyczna zgodność ze współrzędnymi empirycznymi jest w granicach od kilku do kilkunastu centymetrów. Pozwala na stosunkowo dobre „zbliżenie się” do współrzędnych empirycznych,
-a podstawową zaletą jest automatyka przekształcenia niewymagająca starań i pozyskiwania
-punktów łącznych osnowy wyższego rzędu. Jest to bardzo wygodne w wielu zastosowaniach,
-jednakże sposób ten nie powinien być używany jako metoda ostateczna i skończona przy
-przeliczeniach osnów geodezyjnych, zwłaszcza osnów szczegółowych. W takim przypadku
-przeliczenie powinno być zakończone transformacją lokalną (...).
+W programie zaadaptowano współczynniki dotyczące korekt opracowane przez prof.
+Romana Kadaja, dostępne swojego czasu na jego stronie internetowej
+www.geonet.net.pl w postaci pliku pn. kod_korekta65.txt. Przeliczenie to nie
+zachowuje cechy konforemności, ale za to praktyczna zgodność ze współrzędnymi
+empirycznymi jest w granicach od kilku do kilkunastu centymetrów. Pozwala na
+stosunkowo dobre „zbliżenie się” do współrzędnych empirycznych, a podstawową
+zaletą jest automatyka przekształcenia niewymagająca starań i pozyskiwania
+punktów łącznych osnowy wyższego rzędu. Jest to bardzo wygodne w wielu
+zastosowaniach, jednakże sposób ten nie powinien być używany jako metoda
+ostateczna i skończona przy przeliczeniach osnów geodezyjnych, zwłaszcza osnów
+szczegółowych. W takim przypadku przeliczenie powinno być zakończone
+transformacją lokalną (...).
 """
 
 s = {}; xs1 = {}; ys1 = {}; xs2 = {}; ys2 = {}; n = {}; a = {}; b = {}
@@ -2925,18 +2928,20 @@ b['T5',11,1] = 7.88899636524823E+0002 # m=3.98360381955435E+0001
 b['T5',12,0] = -2.93228898460501E+0002 # m=1.24494283952383E+0002
 
 def transform(x1, y1, iss, it):
-# x1, y1 : współrzędne wejściowe
-# x2, y2 : współrzędne wynikowe
-# iss=1|2|3|4|5 (nr strefy PUWG 1965)
-# it='T'|'E' ('T': teoretyczne na empiryczne, 'E': odwrotnie)
+# x1, y1 : coordinates input
+# x2, y2 : coordinates output
+# iss=1|2|3|4|5 (PUWG 1965 zone number)
+# it='T'|'E' ('T': theoretical to empirical, 'E': opposite)
 
-  # t(ransformation)s(elector) - is it 'E1' (empirical to theoretical, zone 1) or 'T3' (theoretical to empirical, zone 3) etc.
+  # t(ransformation)s(elector) - is it 'E1' (empirical to theoretical, zone 1)
+  # or 'T3' (theoretical to empirical, zone 3) etc.
   ts=it+str(iss)
   x = (x1 - xs1[ts]) * s[ts]; y = (y1 - ys1[ts]) * s[ts]
   x2 = xs2[ts]; y2 = ys2[ts]
   p = 1; n1 = n[ts] + 1
 
-  for i1 in xrange(1,n1+1): # `n1+1' zamiast `n1' bo np. `for i in xrange(1,16): print i' zwraca tylko liczby 1-15
+  # `n1+1' rather than `n1' as eg. `for i in xrange(1,16): print i' returns 1-15
+  for i1 in xrange(1,n1+1):
     i = i1 - 1
     nn = n[ts] - i + 1
     q = 1
@@ -2954,15 +2959,16 @@ if __name__ == '__main__':
   
   def usage():
     me = sys_argv[0]
-    print '\nUżycie:'
-    print '  ' + me + ' x y n r\n'
-    print 'Gdzie:\
-    \n  x: wejściowa współrzędna x PUWG 1965\
-    \n  y: wejściowa współrzędna y PUWG 1965\
-    \n  n: numer strefy PUWG 1965 (1, 2, 3, 4 lub 5)\
-    \n  r: rodzaj współrzędnych wejściowych - "T" - teoretyczne, "E" - empiryczne\n\
-    \nPrzykład - konwersja współrzędnych teoretycznych na empiryczne w strefie 1:'
-    print '  ' + me + ' 5467000 4637000 1 T\n'
+    print '\nUsage:'
+    print '  ', me, 'x y n r\n'
+    print 'Where:\
+    \n  x: source PUWG 1965 x coordinate\
+    \n  y: source PUWG 1965 y coordinate\
+    \n  n: PUWG 1965 zone number (1, 2, 3, 4 or 5)\
+    \n  r: source coordinates type - "T"heoretical, "E"mpirical\n\
+    \nExample:\
+    \n  Converting theoretical coordinates to empirical in zone 1:'
+    print '    ', me, '5467000 4637000 1 T\n'
 
   if (len(sys_argv) < 5) or 'h' in ''.join(sys_argv[1:]):
     usage()
