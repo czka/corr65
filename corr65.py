@@ -6,10 +6,10 @@
 
 """
 Some time ago on http://www.geonet.net.pl/gfx/pliki/kod_korekta65.txt there
-was an original Roman Kadaj's Delphi code. It can be still reached on
+was the original Roman Kadaj's Delphi code. It can be still reached on
 http://web.archive.org/web/*/http://www.geonet.net.pl/gfx/pliki/kod_korekta65.txt.
 I'm publlishing it in my repository too for comparison and archival purposes. I
-do not claim any rights for its content.
+do not claim any rights for its content. This is my Python re-write of it.
 """
 
 """
@@ -58,7 +58,7 @@ s = {}; xs1 = {}; ys1 = {}; xs2 = {}; ys2 = {}; n = {}; a = {}; b = {}
 # skala normująca:
 s['E1'] = 3.16700906695084E-0006
 s['E2'] = 3.66728281183833E-0006
-s['E3'] = 3.76507921820784E-0006 
+s['E3'] = 3.76507921820784E-0006
 s['E4'] = 3.38505646756076E-0006
 s['E5'] = 4.68604887495390E-0006
 s['T1'] = 3.16701285208058E-0006
